@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FELPS GALERY</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: #9eafff;
+    --white: #ffffff;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: #08090d;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+/* FUNDO */
+
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -5;
+    background:
+        radial-gradient(circle at 15% 20%, rgba(49,71,130,.23), transparent 35%),
+        radial-gradient(circle at 85% 70%, rgba(76,54,130,.18), transparent 35%),
+        #08090d;
+}
+
+.background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: .13;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.orbit {
+    position: fixed;
+    width: 320px;
+    height: 320px;
+    border: 1px solid rgba(255,255,255,.055);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -3;
+    animation: float 14s ease-in-out infinite;
+}
+
+.orbit.one {
+    top: 8%;
+    left: -180px;
+}
+
+.orbit.two {
+    bottom: 0;
+    right: -190px;
+    width: 420px;
+    height: 420px;
+    animation-delay: -5s;
+}
+
+.light {
+    position: fixed;
+    width: 5px;
+    height: 5px;
+    background: #a5b8ff;
+    border-radius: 50%;
+    box-shadow: 0 0 20px 5px rgba(111,140,255,.4);
+    pointer-events: none;
+    z-index: -2;
+    animation: pulse 4s infinite;
+}
+
+.light.one { top: 18%; left: 12%; }
+.light.two { top: 62%; right: 10%; animation-delay: 2s; }
+.light.three { bottom: 12%; left: 30%; animation-delay: 1s; }
+
+@keyframes float {
+    0%,100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-30px) rotate(12deg); }
+}
+
+@keyframes pulse {
+    0%,100% { opacity: .25; transform: scale(.8); }
+    50% { opacity: 1; transform: scale(1.4); }
+}
+
+/* PARTICULAS */
+
+.particle {
+    position: fixed;
+    bottom: -20px;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #aabaff;
+    box-shadow: 0 0 12px 3px rgba(130,155,255,.35);
+    pointer-events: none;
+    z-index: -1;
+    animation: rise linear infinite;
+}
+
+@keyframes rise {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    15% { opacity: .8; }
+    85% { opacity: .5; }
+    100% {
+        transform: translateY(-110vh) translateX(40px);
+        opacity: 0;
+    }
+}
+
+/* CABEÇALHO */
+
+header {
+    text-align: center;
+    padding: 85px 20px 35px;
+    animation: headerEnter 1.4s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes headerEnter {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+        filter: blur(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+.eyebrow {
+    font-size: 10px;
+    letter-spacing: 5px;
+    color: #8e9bbd;
+    margin-bottom: 20px;
+    animation: fadeIn 2s both;
+}
+
+header h1 {
+    font-size: clamp(35px, 8vw, 75px);
+    font-weight: 900;
+    letter-spacing: -4px;
+    background: linear-gradient(120deg, #fff, #9daedb, #6979a8, #fff);
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 7s linear infinite;
+    filter: drop-shadow(0 0 22px rgba(132,155,255,.16));
+}
+
+@keyframes shine {
+    to { background-position: 250% center; }
+}
+
+header p {
+    margin-top: 13px;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: #777d8d;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* CONTROLE DE SOM */
+
+.sound-control {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 15px;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 30px;
+    background: rgba(15,18,29,.78);
+    backdrop-filter: blur(15px);
+    color: #aebce8;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.sound-control:hover {
+    border-color: #a5b8ff;
+    box-shadow: 0 0 20px rgba(120,145,255,.2);
+    transform: translateY(-2px);
+}
+
+.sound-icon {
+    font-size: 15px;
+}
+
+/* NAVEGACAO */
+
+.gallery-nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px auto 45px;
+    padding: 0 15px;
+    animation: fadeIn 2s both;
+}
+
+.gallery-nav button {
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(255,255,255,.12);
+    color: #858b9b;
+    padding: 13px 22px;
+    border-radius: 30px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: .35s;
+}
+
+.gallery-nav button:hover,
+.gallery-nav button.active {
+    background: rgba(143,164,220,.13);
+    color: white;
+    border-color: rgba(159,180,255,.5);
+    box-shadow: 0 0 25px rgba(112,140,220,.12);
+    transform: translateY(-3px);
+}
+
+/* GALERIA */
+
+.gallery {
+    width: 91%;
+    max-width: 1200px;
+    margin: auto;
+    padding-bottom: 70px;
+}
+
+.gallery-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    border-left: 2px solid #9daedb;
+    padding-left: 13px;
+}
+
+.gallery-heading h2 {
+    font-size: 12px;
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+
+.gallery-heading span {
+    color: #666d7c;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: 13px;
+    aspect-ratio: 3 / 4;
+    background: #151720;
+    border: 1px solid rgba(255,255,255,.07);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(30px) scale(.97);
+    transition:
+        opacity .8s ease,
+        transform .8s cubic-bezier(.16,1,.3,1),
+        border-color .4s,
+        box-shadow .4s;
+}
+
+.photo.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, rgba(255,255,255,.12), transparent 40%, rgba(0,0,0,.12));
+    opacity: .35;
+    pointer-events: none;
+    transition: .4s;
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .8s cubic-bezier(.16,1,.3,1), filter .5s;
+}
+
+.photo:hover {
+    border-color: rgba(159,180,255,.5);
+    box-shadow: 0 12px 35px rgba(66,85,150,.22);
+    transform: translateY(-5px) scale(1.015);
+}
+
+.photo:hover img {
+    transform: scale(1.07);
+    filter: brightness(.83);
+}
+
+.photo:hover::after {
+    opacity: .7;
+}
+
+.photo.feature {
+    grid-column: span 2;
+    aspect-ratio: 16 / 10;
+}
+
+/* TROCA DE GALERIAS */
+
+.gallery-section {
+    display: none;
+}
+
+.gallery-section.active {
+    display: block;
+    animation: sectionEnter .7s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes sectionEnter {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* VISUALIZADOR */
+
+.viewer {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(3,4,9,.96);
+    backdrop-filter: blur(18px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .35s, visibility .35s;
+}
+
+.viewer.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.viewer img {
+    max-width: 95%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 8px;
+    transform: scale(.88);
+    opacity: 0;
+    transition: transform .5s cubic-bezier(.16,1,.3,1), opacity .4s;
+    box-shadow: 0 0 60px rgba(0,0,0,.5);
+}
+
+.viewer.active img {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.close {
+    position: absolute;
+    top: 22px;
+    right: 25px;
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: .3s;
+}
+
+.close:hover {
+    color: #a5b8ff;
+    transform: rotate(90deg);
+}
+
+/* RODAPE */
+
+footer {
+    text-align: center;
+    padding: 25px 15px 35px;
+    color: #555b6b;
+    font-size: 9px;
+    letter-spacing: 3px;
+    border-top: 1px solid rgba(255,255,255,.045);
+}
+
+/* RESPONSIVIDADE */
+
+@media (min-width: 650px) {
+    .photo-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+    }
+
+    .photo.feature {
+        grid-column: span 2;
+    }
+}
+
+@media (min-width: 1000px) {
+    .photo-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    .photo.feature {
+        grid-row: span 2;
+        aspect-ratio: auto;
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 400px) {
+    .gallery-nav button {
+        padding: 12px 15px;
+        font-size: 9px;
+    }
+
+    header h1 {
+        letter-spacing: -2px;
+    }
+
+    .sound-control {
+        top: 12px;
+        right: 12px;
+        padding: 9px 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+<div class="orbit one"></div>
+<div class="orbit two"></div>
+<div class="light one"></div>
+<div class="light two"></div>
+<div class="light three"></div>
+
+<!-- BOTAO DE SOM -->
+<button class="sound-control" id="soundButton" onclick="toggleSound()">
+    <span class="sound-icon" id="soundIcon">♫</span>
+    <span id="soundText">SOM: OFF</span>
+</button>
+
+<header>
+    <div class="eyebrow">PERSONAL DIGITAL ARCHIVE</div>
+    <h1>FELPS GALERY</h1>
+    <p>A WORLD OF MY OWN</p>
+</header>
+
+<nav class="gallery-nav">
+    <button class="active" onclick="showGallery('mine', this)">
+        MINHA GALERIA
+    </button>
+
+    <button onclick="showGallery('friends', this)">
+        AMIGOS ↗
+    </button>
+</nav>
+
+<main class="gallery">
+
+    <!-- MINHA GALERIA -->
+
+    <section id="mine" class="gallery-section active">
+
+        <div class="gallery-heading">
+            <h2>MY COLLECTION</h2>
+            <span>PERSONAL ARCHIVE</span>
+        </div>
+
+        <div class="photo-grid">
+
+            <div class="photo feature" onclick="openPhoto(this)">
+                <img src="felpsfoto1.jpeg" alt="Foto 1">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="felpsfoto2.jpeg" alt="Foto 2">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="felpsfoto3.jpeg" alt="Foto 3">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="FOTO FELPS 4.jpeg" alt="Foto 4">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="FOTO FELPS 54.jpeg" alt="Foto 5">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="FOTO FELPS 6.jpeg" alt="Foto 6">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="FOTO FELPS 7.jpeg" alt="Foto 7">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="FOTO FELPS 8.jpeg" alt="Foto 8">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="foto felps 9 .jpeg" alt="Foto 9">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="foto felps 10.jpeg" alt="Foto 10">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="foto felps 11.jpeg" alt="Foto 11">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="foto felps 12.jpeg" alt="Foto 12">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="foto felps 14.jpeg" alt="Foto 14">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="foto felps 15.jpeg" alt="Foto 15">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="foto felps 16.jpeg" alt="Foto 16">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="foto felps 17.jpeg" alt="Foto 17">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="foto felps 18.jpeg" alt="Foto 18">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="foto felps 19.jpeg" alt="Foto 19">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="foto felps 22.jpeg" alt="Foto 22">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="foto felps 21.jpeg" alt="Foto 21">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="foto felps 20.jpeg" alt="Foto 20">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- GALERIA DE AMIGOS -->
+
+    <section id="friends" class="gallery-section">
+
+        <div class="gallery-heading">
+            <h2>FRIENDS COLLECTION</h2>
+            <span>OUR MEMORIES</span>
+        </div>
+
+        <div class="photo-grid">
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos 1.jpeg" alt="Amigo 1">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos2.jpeg" alt="Amigo 2">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos3.jpeg" alt="Amigo 3">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos13.jpeg" alt="Amigo 4">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos14.jpeg" alt="Amigo 5">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos6.jpeg" alt="Amigo 6">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos7.jpeg" alt="Amigo 7">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos8.jpeg" alt="Amigo 8">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos9.jpeg" alt="Amigo 9">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos10.jpeg" alt="Amigo 10">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos11.jpeg" alt="Amigo 11">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos12.jpeg" alt="Amigo 12">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos4.jpeg" alt="Amigo 13">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos5.jpeg" alt="Amigo 14">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos16.jpeg" alt="Amigo 16">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos17.jpeg" alt="Amigo 17">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos18.jpeg" alt="Amigo 18">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos20.jpeg" alt="Amigo 20">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos21.jpeg" alt="Amigo 21">
+            </div>
+
+            <div class="photo" onclick="openPhoto(this)">
+                <img src="amigos12.jpeg" alt="Amigo 12">
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- VISUALIZADOR DE FOTOS -->
+
+<div class="viewer" id="viewer" onclick="closePhoto()">
+    <button class="close" onclick="closePhoto()">×</button>
+    <img id="viewerImage" src="" alt="Foto ampliada">
+</div>
+
+<footer>
+    FELPS GALERY — PERSONAL DIGITAL ARCHIVE
+</footer>
+
+<script>
+
+/* PARTICULAS FLUTUANTES */
+
+for (let i = 0; i < 22; i++) {
+    const particle = document.createElement("div");
+    particle.className = "particle";
+
+    particle.style.left = Math.random() * 100 + "vw";
+    particle.style.animationDuration = (9 + Math.random() * 13) + "s";
+    particle.style.animationDelay = (Math.random() * 12) + "s";
+    particle.style.opacity = Math.random() * .7;
+
+    document.body.appendChild(particle);
+}
+
+/* ANIMACAO DAS FOTOS */
+
+function observePhotos() {
+    const photos = document.querySelectorAll(
+        ".gallery-section.active .photo"
+    );
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.08
+    });
+
+    photos.forEach((photo, index) => {
+        photo.style.transitionDelay = (index % 6) * 65 + "ms";
+        observer.observe(photo);
+    });
+}
+
+/* TROCA DE GALERIAS */
+
+function showGallery(id, button) {
+
+    playClick();
+
+    document.querySelectorAll(".gallery-section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    document.querySelectorAll(".gallery-nav button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    observePhotos();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+/* ABRIR FOTO */
+
+function openPhoto(element) {
+
+    const image = element.querySelector("img");
+
+    if (!image || !image.complete || !image.naturalWidth) return;
+
+    playOpen();
+
+    document.getElementById("viewerImage").src = image.src;
+    document.getElementById("viewer").classList.add("active");
+
+    document.body.style.overflow = "hidden";
+}
+
+/* FECHAR FOTO */
+
+function closePhoto() {
+
+    const viewer = document.getElementById("viewer");
+
+    if (!viewer.classList.contains("active")) return;
+
+    viewer.classList.remove("active");
+    document.body.style.overflow = "";
+
+    playClick();
+}
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") closePhoto();
+});
+
+/* SISTEMA DE SOM */
+
+let audioContext = null;
+let soundEnabled = false;
+let ambientOscillators = [];
+let ambientGain = null;
+
+function getAudioContext() {
+    if (!audioContext) {
+        const AudioContextClass =
+            window.AudioContext || window.webkitAudioContext;
+
+        if (!AudioContextClass) return null;
+
+        audioContext = new AudioContextClass();
+    }
+
+    if (audioContext.state === "suspended") {
+        audioContext.resume();
+    }
+
+    return audioContext;
+}
+
+/* EFEITO SONORO DE INTERFACE */
+
+function playTone(frequency, duration, volume, type = "sine") {
+
+    if (!soundEnabled) return;
+
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    oscillator.type = type;
+    oscillator.frequency.setValueAtTime(frequency, ctx.currentTime);
+
+    gain.gain.setValueAtTime(0, ctx.currentTime);
+    gain.gain.linearRampToValueAtTime(volume, ctx.currentTime + .025);
+    gain.gain.exponentialRampToValueAtTime(
+        .001,
+        ctx.currentTime + duration
+    );
+
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+
+    oscillator.start();
+    oscillator.stop(ctx.currentTime + duration + .05);
+}
+
+function playClick() {
+    playTone(620, .12, .035);
+}
+
+function playOpen() {
+    playTone(520, .18, .04);
+    setTimeout(() => playTone(780, .22, .035), 90);
+}
+
+/* SOM AMBIENTE */
+
+function startAmbient() {
+
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    stopAmbient();
+
+    ambientGain = ctx.createGain();
+    ambientGain.gain.setValueAtTime(0, ctx.currentTime);
+    ambientGain.gain.linearRampToValueAtTime(
+        .025,
+        ctx.currentTime + 2
+    );
+
+    ambientGain.connect(ctx.destination);
+
+    const frequencies = [110, 164.81, 220];
+
+    frequencies.forEach((frequency, index) => {
+
+        const oscillator = ctx.createOscillator();
+        const volume = ctx.createGain();
+
+        oscillator.type = index === 1 ? "triangle" : "sine";
+        oscillator.frequency.value = frequency;
+
+        volume.gain.value = index === 0 ? .45 : .15;
+
+        oscillator.connect(volume);
+        volume.connect(ambientGain);
+
+        oscillator.start();
+
+        ambientOscillators.push(oscillator);
+    });
+}
+
+function stopAmbient() {
+
+    if (ambientGain && audioContext) {
+
+        const ctx = audioContext;
+
+        ambientGain.gain.cancelScheduledValues(ctx.currentTime);
+        ambientGain.gain.setTargetAtTime(
+            0,
+            ctx.currentTime,
+            .12
+        );
+
+        const oldOscillators = [...ambientOscillators];
+
+        setTimeout(() => {
+            oldOscillators.forEach(oscillator => {
+                try {
+                    oscillator.stop();
+                } catch (error) {}
+            });
+        }, 600);
+    }
+
+    ambientOscillators = [];
+    ambientGain = null;
+}
+
+/* LIGAR E DESLIGAR SOM */
+
+function toggleSound() {
+
+    const button = document.getElementById("soundButton");
+    const text = document.getElementById("soundText");
+    const icon = document.getElementById("soundIcon");
+
+    soundEnabled = !soundEnabled;
+
+    if (soundEnabled) {
+
+        getAudioContext();
+        startAmbient();
+
+        text.textContent = "SOM: ON";
+        icon.textContent = "♫";
+
+        button.style.borderColor = "rgba(159,180,255,.65)";
+        button.style.boxShadow = "0 0 22px rgba(120,145,255,.18)";
+
+        playTone(660, .25, .045);
+        setTimeout(() => playTone(880, .3, .035), 100);
+
+    } else {
+
+        stopAmbient();
+
+        text.textContent = "SOM: OFF";
+        icon.textContent = "♪";
+
+        button.style.borderColor = "rgba(255,255,255,.14)";
+        button.style.boxShadow = "none";
+    }
+}
+
+/* INICIAR ANIMACOES */
+
+window.addEventListener("load", () => {
+    observePhotos();
+});
+
+</script>
+
+</body>
+</html>
