@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -6,7 +6,6 @@
 <title>FELPS GALERY</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
@@ -16,14 +15,7 @@
     box-sizing: border-box;
 }
 
-:root {
-    --blue: #9eafff;
-    --white: #ffffff;
-}
-
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
     min-height: 100vh;
@@ -33,6 +25,10 @@ body {
     overflow-x: hidden;
 }
 
+body.intro-active {
+    overflow: hidden;
+}
+
 /* FUNDO */
 
 .background {
@@ -40,9 +36,9 @@ body {
     inset: 0;
     z-index: -5;
     background:
-        radial-gradient(circle at 15% 20%, rgba(49,71,130,.23), transparent 35%),
-        radial-gradient(circle at 85% 70%, rgba(76,54,130,.18), transparent 35%),
-        #08090d;
+    radial-gradient(circle at 15% 20%, rgba(49,71,130,.23), transparent 35%),
+    radial-gradient(circle at 85% 70%, rgba(76,54,130,.18), transparent 35%),
+    #08090d;
 }
 
 .background::after {
@@ -51,7 +47,6 @@ body {
     inset: 0;
     opacity: .13;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
-    pointer-events: none;
 }
 
 .orbit {
@@ -75,7 +70,6 @@ body {
     right: -190px;
     width: 420px;
     height: 420px;
-    animation-delay: -5s;
 }
 
 .light {
@@ -91,8 +85,8 @@ body {
 }
 
 .light.one { top: 18%; left: 12%; }
-.light.two { top: 62%; right: 10%; animation-delay: 2s; }
-.light.three { bottom: 12%; left: 30%; animation-delay: 1s; }
+.light.two { top: 62%; right: 10%; }
+.light.three { bottom: 12%; left: 30%; }
 
 @keyframes float {
     0%,100% { transform: translateY(0) rotate(0); }
@@ -132,7 +126,184 @@ body {
     }
 }
 
-/* CABEÇALHO */
+/* =================================
+   TELA DE APRESENTAÇÃO
+================================= */
+
+.intro-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 35px 22px;
+    background:
+        radial-gradient(ellipse at 50% 35%, rgba(42,57,105,.20), transparent 55%),
+        radial-gradient(ellipse at 0% 100%, rgba(56,73,125,.22), transparent 40%),
+        #05060c;
+    transition: opacity 1s ease, visibility 1s ease;
+}
+
+.intro-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.intro-content {
+    position: relative;
+    width: 100%;
+    max-width: 550px;
+    text-align: center;
+    animation: introAppear 1.5s ease both;
+}
+
+@keyframes introAppear {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+.intro-top {
+    color: #9daacb;
+    font-size: 10px;
+    letter-spacing: 5px;
+    margin-bottom: 75px;
+}
+
+.intro-top::after {
+    content: "✦";
+    display: block;
+    font-size: 25px;
+    color: #dce5ff;
+    margin-top: 25px;
+    text-shadow: 0 0 20px #a5baff;
+}
+
+.intro-star {
+    position: absolute;
+    color: #c4d2ff;
+    font-size: 35px;
+    text-shadow: 0 0 20px #8caaff;
+    animation: starFloat 5s ease-in-out infinite;
+}
+
+.intro-star.one {
+    top: 95px;
+    left: 0;
+}
+
+.intro-star.two {
+    top: 170px;
+    right: 0;
+    font-size: 27px;
+    animation-delay: 2s;
+}
+
+.intro-star.three {
+    bottom: 125px;
+    left: 10px;
+    animation-delay: 1s;
+}
+
+@keyframes starFloat {
+    50% {
+        transform: translateY(-15px) rotate(25deg);
+        opacity: .5;
+    }
+}
+
+.intro-title {
+    font-family: Georgia, serif;
+    font-size: clamp(48px, 12vw, 78px);
+    line-height: .92;
+    font-weight: 400;
+    letter-spacing: -3px;
+    color: #e8edff;
+    text-shadow: 0 0 30px rgba(153,177,255,.35);
+    margin-bottom: 23px;
+}
+
+.intro-subtitle {
+    color: #b9c7ee;
+    font-size: 11px;
+    letter-spacing: 5px;
+    margin-bottom: 75px;
+}
+
+.intro-handwriting {
+    font-family: "Brush Script MT", "Segoe Script", cursive;
+    font-size: clamp(35px, 9vw, 54px);
+    line-height: 1.15;
+    color: #cbd6ff;
+    font-style: italic;
+    margin-bottom: 45px;
+    text-shadow: 0 0 20px rgba(157,177,255,.2);
+}
+
+.intro-description {
+    color: #c0c5d8;
+    font-size: 15px;
+    line-height: 1.9;
+    max-width: 430px;
+    margin: 0 auto 30px;
+}
+
+.intro-memory {
+    color: #c0c9e8;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 55px;
+}
+
+.start-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    width: min(100%, 340px);
+    padding: 20px;
+    color: #e2eaff;
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    border: 1px solid #9eb5ff;
+    border-radius: 50px;
+    background: rgba(103,125,190,.09);
+    box-shadow:
+        0 0 15px rgba(132,159,255,.20),
+        inset 0 0 15px rgba(132,159,255,.08);
+    cursor: pointer;
+    transition: .4s;
+}
+
+.start-button:hover {
+    background: rgba(133,157,225,.2);
+    box-shadow: 0 0 35px rgba(132,159,255,.4);
+    transform: scale(1.04);
+}
+
+.start-button span {
+    font-size: 20px;
+}
+
+.intro-footer {
+    margin-top: 85px;
+    color: #8995b5;
+    font-size: 10px;
+    letter-spacing: 5px;
+}
+
+/* CABEÇALHO DA GALERIA */
 
 header {
     text-align: center;
@@ -158,7 +329,6 @@ header {
     letter-spacing: 5px;
     color: #8e9bbd;
     margin-bottom: 20px;
-    animation: fadeIn 2s both;
 }
 
 header h1 {
@@ -185,11 +355,6 @@ header p {
     color: #777d8d;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
 /* CONTROLE DE SOM */
 
 .sound-control {
@@ -213,15 +378,7 @@ header p {
     transition: .3s;
 }
 
-.sound-control:hover {
-    border-color: #a5b8ff;
-    box-shadow: 0 0 20px rgba(120,145,255,.2);
-    transform: translateY(-2px);
-}
-
-.sound-icon {
-    font-size: 15px;
-}
+.sound-icon { font-size: 15px; }
 
 /* NAVEGACAO */
 
@@ -231,7 +388,6 @@ header p {
     gap: 12px;
     margin: 20px auto 45px;
     padding: 0 15px;
-    animation: fadeIn 2s both;
 }
 
 .gallery-nav button {
@@ -277,7 +433,6 @@ header p {
 .gallery-heading h2 {
     font-size: 12px;
     letter-spacing: 3px;
-    font-weight: 700;
 }
 
 .gallery-heading span {
@@ -321,7 +476,6 @@ header p {
     background: linear-gradient(145deg, rgba(255,255,255,.12), transparent 40%, rgba(0,0,0,.12));
     opacity: .35;
     pointer-events: none;
-    transition: .4s;
 }
 
 .photo img {
@@ -329,7 +483,7 @@ header p {
     height: 100%;
     display: block;
     object-fit: cover;
-    transition: transform .8s cubic-bezier(.16,1,.3,1), filter .5s;
+    transition: transform .8s, filter .5s;
 }
 
 .photo:hover {
@@ -343,24 +497,18 @@ header p {
     filter: brightness(.83);
 }
 
-.photo:hover::after {
-    opacity: .7;
-}
-
 .photo.feature {
     grid-column: span 2;
     aspect-ratio: 16 / 10;
 }
 
-/* TROCA DE GALERIAS */
+/* TROCA DE COLECOES */
 
-.gallery-section {
-    display: none;
-}
+.gallery-section { display: none; }
 
 .gallery-section.active {
     display: block;
-    animation: sectionEnter .7s cubic-bezier(.16,1,.3,1) both;
+    animation: sectionEnter .7s ease both;
 }
 
 @keyframes sectionEnter {
@@ -405,8 +553,7 @@ header p {
     border-radius: 8px;
     transform: scale(.88);
     opacity: 0;
-    transition: transform .5s cubic-bezier(.16,1,.3,1), opacity .4s;
-    box-shadow: 0 0 60px rgba(0,0,0,.5);
+    transition: .5s;
 }
 
 .viewer.active img {
@@ -423,12 +570,6 @@ header p {
     cursor: pointer;
     background: none;
     border: none;
-    transition: .3s;
-}
-
-.close:hover {
-    color: #a5b8ff;
-    transform: rotate(90deg);
 }
 
 /* RODAPE */
@@ -474,14 +615,26 @@ footer {
         font-size: 9px;
     }
 
-    header h1 {
-        letter-spacing: -2px;
+    header h1 { letter-spacing: -2px; }
+
+    .intro-top {
+        margin-bottom: 45px;
     }
 
-    .sound-control {
-        top: 12px;
-        right: 12px;
-        padding: 9px 12px;
+    .intro-subtitle {
+        margin-bottom: 45px;
+    }
+
+    .intro-handwriting {
+        margin-bottom: 30px;
+    }
+
+    .intro-memory {
+        margin-bottom: 35px;
+    }
+
+    .intro-footer {
+        margin-top: 50px;
     }
 }
 
@@ -495,7 +648,9 @@ footer {
 </style>
 </head>
 
-<body>
+<body class="intro-active">
+
+<!-- FUNDO -->
 
 <div class="background"></div>
 <div class="orbit one"></div>
@@ -504,7 +659,66 @@ footer {
 <div class="light two"></div>
 <div class="light three"></div>
 
-<!-- BOTAO DE SOM -->
+<!-- =================================
+     TELA DE APRESENTAÇÃO
+================================= -->
+
+<div class="intro-screen" id="introScreen">
+
+    <div class="intro-content">
+
+        <div class="intro-star one">✧</div>
+        <div class="intro-star two">✦</div>
+        <div class="intro-star three">✧</div>
+
+        <div class="intro-top">
+            PERSONAL DIGITAL ARCHIVE
+        </div>
+
+        <h1 class="intro-title">
+            FELPS<br>GALERY
+        </h1>
+
+        <div class="intro-subtitle">
+            A WORLD OF MY OWN
+        </div>
+
+        <div class="intro-handwriting">
+            Você faz parte<br>
+            dessa história. ♡
+        </div>
+
+        <p class="intro-description">
+            Criei um espaço especial para reunir
+            registros, memórias e pessoas que fazem
+            parte da minha vida.
+        </p>
+
+        <p class="intro-memory">
+            E talvez você encontre<br>
+            uma lembrança sua por lá. ♡
+        </p>
+
+        <button class="start-button" onclick="startGallery()">
+            <span>✧</span>
+            COMEÇAR
+            <span>›</span>
+        </button>
+
+        <div class="intro-footer">
+            FELPS GALERY — 2026
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =================================
+     SITE PRINCIPAL
+================================= -->
+
+<!-- SOM -->
+
 <button class="sound-control" id="soundButton" onclick="toggleSound()">
     <span class="sound-icon" id="soundIcon">♫</span>
     <span id="soundText">SOM: OFF</span>
@@ -516,7 +730,10 @@ footer {
     <p>A WORLD OF MY OWN</p>
 </header>
 
+<!-- NAVEGACAO -->
+
 <nav class="gallery-nav">
+
     <button class="active" onclick="showGallery('mine', this)">
         MINHA GALERIA
     </button>
@@ -524,300 +741,168 @@ footer {
     <button onclick="showGallery('friends', this)">
         AMIGOS ↗
     </button>
+
 </nav>
 
 <main class="gallery">
 
-    <!-- MINHA GALERIA -->
+<!-- MINHA GALERIA -->
 
-    <section id="mine" class="gallery-section active">
+<section id="mine" class="gallery-section active">
 
-        <div class="gallery-heading">
-            <h2>MY COLLECTION</h2>
-            <span>PERSONAL ARCHIVE</span>
+    <div class="gallery-heading">
+        <h2>MY COLLECTION</h2>
+        <span>PERSONAL ARCHIVE</span>
+    </div>
+
+    <div class="photo-grid">
+
+        <div class="photo feature" onclick="openPhoto(this)">
+            <img src="felpsfoto1.jpeg" alt="Foto 1">
         </div>
 
-        <div class="photo-grid">
-
-            <div class="photo feature" onclick="openPhoto(this)">
-                <img src="felpsfoto1.jpeg" alt="Foto 1">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="felpsfoto2.jpeg" alt="Foto 2">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="felpsfoto3.jpeg" alt="Foto 3">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="FOTO FELPS 4.jpeg" alt="Foto 4">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="FOTO FELPS 54.jpeg" alt="Foto 5">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="FOTO FELPS 6.jpeg" alt="Foto 6">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="FOTO FELPS 7.jpeg" alt="Foto 7">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="FOTO FELPS 8.jpeg" alt="Foto 8">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="foto felps 9 .jpeg" alt="Foto 9">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="foto felps 10.jpeg" alt="Foto 10">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="foto felps 11.jpeg" alt="Foto 11">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="foto felps 12.jpeg" alt="Foto 12">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="foto felps 14.jpeg" alt="Foto 14">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="foto felps 15.jpeg" alt="Foto 15">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="foto felps 16.jpeg" alt="Foto 16">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="foto felps 17.jpeg" alt="Foto 17">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="foto felps 18.jpeg" alt="Foto 18">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="foto felps 19.jpeg" alt="Foto 19">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="foto felps 22.jpeg" alt="Foto 22">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="foto felps 21.jpeg" alt="Foto 21">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="foto felps 20.jpeg" alt="Foto 20">
-            </div>
-
-        </div>
-    </section>
-
-    <!-- GALERIA DE AMIGOS -->
-
-    <section id="friends" class="gallery-section">
-
-        <div class="gallery-heading">
-            <h2>FRIENDS COLLECTION</h2>
-            <span>OUR MEMORIES</span>
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="felpsfoto2.jpeg" alt="Foto 2">
         </div>
 
-        <div class="photo-grid">
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos 1.jpeg" alt="Amigo 1">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos2.jpeg" alt="Amigo 2">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos3.jpeg" alt="Amigo 3">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos13.jpeg" alt="Amigo 4">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos14.jpeg" alt="Amigo 5">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos6.jpeg" alt="Amigo 6">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos7.jpeg" alt="Amigo 7">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos8.jpeg" alt="Amigo 8">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos9.jpeg" alt="Amigo 9">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos10.jpeg" alt="Amigo 10">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos11.jpeg" alt="Amigo 11">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos12.jpeg" alt="Amigo 12">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos4.jpeg" alt="Amigo 13">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos5.jpeg" alt="Amigo 14">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos16.jpeg" alt="Amigo 16">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos17.jpeg" alt="Amigo 17">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos18.jpeg" alt="Amigo 18">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos20.jpeg" alt="Amigo 20">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos21.jpeg" alt="Amigo 21">
-            </div>
-
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos23.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos24.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos25.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos26.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos27.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos28.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos29.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos30.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos31.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos32.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos33.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos34.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos35.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos36.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos37.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos38.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos39.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos40.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos41.jpeg" alt="Amigo 12">
-            </div>
-
-            
-            <div class="photo" onclick="openPhoto(this)">
-                <img src="amigos42.jpeg" alt="Amigo 12">
-            </div>
-
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="felpsfoto3.jpeg" alt="Foto 3">
         </div>
-    </section>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="FOTO FELPS 4.jpeg" alt="Foto 4">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="FOTO FELPS 54.jpeg" alt="Foto 5">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="FOTO FELPS 6.jpeg" alt="Foto 6">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="FOTO FELPS 7.jpeg" alt="Foto 7">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="FOTO FELPS 8.jpeg" alt="Foto 8">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="foto felps 9 .jpeg" alt="Foto 9">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="foto felps 10.jpeg" alt="Foto 10">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="foto felps 11.jpeg" alt="Foto 11">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="foto felps 12.jpeg" alt="Foto 12">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="foto felps 14.jpeg" alt="Foto 14">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="foto felps 15.jpeg" alt="Foto 15">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="foto felps 16.jpeg" alt="Foto 16">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="foto felps 17.jpeg" alt="Foto 17">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="foto felps 18.jpeg" alt="Foto 18">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="foto felps 19.jpeg" alt="Foto 19">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="foto felps 22.jpeg" alt="Foto 22">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="foto felps 21.jpeg" alt="Foto 21">
+        </div>
+
+        <div class="photo" onclick="openPhoto(this)">
+            <img src="foto felps 20.jpeg" alt="Foto 20">
+        </div>
+
+    </div>
+</section>
+
+<!-- GALERIA DE AMIGOS -->
+
+<section id="friends" class="gallery-section">
+
+    <div class="gallery-heading">
+        <h2>FRIENDS COLLECTION</h2>
+        <span>OUR MEMORIES</span>
+    </div>
+
+    <div class="photo-grid">
+
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos 1.jpeg" alt="Amigo 1"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos2.jpeg" alt="Amigo 2"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos3.jpeg" alt="Amigo 3"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos13.jpeg" alt="Amigo 4"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos14.jpeg" alt="Amigo 5"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos6.jpeg" alt="Amigo 6"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos7.jpeg" alt="Amigo 7"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos8.jpeg" alt="Amigo 8"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos9.jpeg" alt="Amigo 9"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos10.jpeg" alt="Amigo 10"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos11.jpeg" alt="Amigo 11"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos12.jpeg" alt="Amigo 12"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos4.jpeg" alt="Amigo 13"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos5.jpeg" alt="Amigo 14"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos16.jpeg" alt="Amigo 16"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos17.jpeg" alt="Amigo 17"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos18.jpeg" alt="Amigo 18"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos20.jpeg" alt="Amigo 20"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos21.jpeg" alt="Amigo 21"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos23.jpeg" alt="Amigo 23"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos24.jpeg" alt="Amigo 24"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos25.jpeg" alt="Amigo 25"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos26.jpeg" alt="Amigo 26"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos27.jpeg" alt="Amigo 27"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos28.jpeg" alt="Amigo 28"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos29.jpeg" alt="Amigo 29"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos30.jpeg" alt="Amigo 30"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos31.jpeg" alt="Amigo 31"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos32.jpeg" alt="Amigo 32"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos33.jpeg" alt="Amigo 33"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos34.jpeg" alt="Amigo 34"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos35.jpeg" alt="Amigo 35"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos36.jpeg" alt="Amigo 36"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos37.jpeg" alt="Amigo 37"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos38.jpeg" alt="Amigo 38"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos39.jpeg" alt="Amigo 39"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos40.jpeg" alt="Amigo 40"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos41.jpeg" alt="Amigo 41"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos42.jpeg" alt="Amigo 42"></div>
+        <div class="photo" onclick="openPhoto(this)"><img src="amigos50.jpeg" alt="Amigo 42"></div>
+
+
+    </div>
+</section>
 
 </main>
 
-<!-- VISUALIZADOR DE FOTOS -->
+<!-- VISUALIZADOR -->
 
 <div class="viewer" id="viewer" onclick="closePhoto()">
     <button class="close" onclick="closePhoto()">×</button>
@@ -830,12 +915,12 @@ footer {
 
 <script>
 
-/* PARTICULAS FLUTUANTES */
+/* PARTICULAS */
 
 for (let i = 0; i < 22; i++) {
     const particle = document.createElement("div");
-    particle.className = "particle";
 
+    particle.className = "particle";
     particle.style.left = Math.random() * 100 + "vw";
     particle.style.animationDuration = (9 + Math.random() * 13) + "s";
     particle.style.animationDelay = (Math.random() * 12) + "s";
@@ -844,31 +929,51 @@ for (let i = 0; i < 22; i++) {
     document.body.appendChild(particle);
 }
 
+/* ENTRAR NA GALERIA */
+
+function startGallery() {
+
+    const intro = document.getElementById("introScreen");
+
+    intro.classList.add("hidden");
+    document.body.classList.remove("intro-active");
+
+    setTimeout(() => {
+        intro.style.display = "none";
+        observePhotos();
+    }, 1000);
+
+}
+
 /* ANIMACAO DAS FOTOS */
 
 function observePhotos() {
+
     const photos = document.querySelectorAll(
         ".gallery-section.active .photo"
     );
 
     const observer = new IntersectionObserver((entries) => {
+
         entries.forEach((entry) => {
+
             if (entry.isIntersecting) {
                 entry.target.classList.add("visible");
                 observer.unobserve(entry.target);
             }
+
         });
-    }, {
-        threshold: 0.08
-    });
+
+    }, { threshold: 0.08 });
 
     photos.forEach((photo, index) => {
         photo.style.transitionDelay = (index % 6) * 65 + "ms";
         observer.observe(photo);
     });
+
 }
 
-/* TROCA DE GALERIAS */
+/* TROCAR GALERIAS */
 
 function showGallery(id, button) {
 
@@ -892,6 +997,7 @@ function showGallery(id, button) {
         top: 0,
         behavior: "smooth"
     });
+
 }
 
 /* ABRIR FOTO */
@@ -908,6 +1014,7 @@ function openPhoto(element) {
     document.getElementById("viewer").classList.add("active");
 
     document.body.style.overflow = "hidden";
+
 }
 
 /* FECHAR FOTO */
@@ -922,6 +1029,7 @@ function closePhoto() {
     document.body.style.overflow = "";
 
     playClick();
+
 }
 
 document.addEventListener("keydown", function(event) {
@@ -936,13 +1044,16 @@ let ambientOscillators = [];
 let ambientGain = null;
 
 function getAudioContext() {
+
     if (!audioContext) {
+
         const AudioContextClass =
             window.AudioContext || window.webkitAudioContext;
 
         if (!AudioContextClass) return null;
 
         audioContext = new AudioContextClass();
+
     }
 
     if (audioContext.state === "suspended") {
@@ -950,9 +1061,10 @@ function getAudioContext() {
     }
 
     return audioContext;
+
 }
 
-/* EFEITO SONORO DE INTERFACE */
+/* EFEITOS SONOROS */
 
 function playTone(frequency, duration, volume, type = "sine") {
 
@@ -965,10 +1077,19 @@ function playTone(frequency, duration, volume, type = "sine") {
     const gain = ctx.createGain();
 
     oscillator.type = type;
-    oscillator.frequency.setValueAtTime(frequency, ctx.currentTime);
+
+    oscillator.frequency.setValueAtTime(
+        frequency,
+        ctx.currentTime
+    );
 
     gain.gain.setValueAtTime(0, ctx.currentTime);
-    gain.gain.linearRampToValueAtTime(volume, ctx.currentTime + .025);
+
+    gain.gain.linearRampToValueAtTime(
+        volume,
+        ctx.currentTime + .025
+    );
+
     gain.gain.exponentialRampToValueAtTime(
         .001,
         ctx.currentTime + duration
@@ -979,6 +1100,7 @@ function playTone(frequency, duration, volume, type = "sine") {
 
     oscillator.start();
     oscillator.stop(ctx.currentTime + duration + .05);
+
 }
 
 function playClick() {
@@ -1000,7 +1122,9 @@ function startAmbient() {
     stopAmbient();
 
     ambientGain = ctx.createGain();
+
     ambientGain.gain.setValueAtTime(0, ctx.currentTime);
+
     ambientGain.gain.linearRampToValueAtTime(
         .025,
         ctx.currentTime + 2
@@ -1026,7 +1150,9 @@ function startAmbient() {
         oscillator.start();
 
         ambientOscillators.push(oscillator);
+
     });
+
 }
 
 function stopAmbient() {
@@ -1036,6 +1162,7 @@ function stopAmbient() {
         const ctx = audioContext;
 
         ambientGain.gain.cancelScheduledValues(ctx.currentTime);
+
         ambientGain.gain.setTargetAtTime(
             0,
             ctx.currentTime,
@@ -1045,16 +1172,22 @@ function stopAmbient() {
         const oldOscillators = [...ambientOscillators];
 
         setTimeout(() => {
+
             oldOscillators.forEach(oscillator => {
+
                 try {
                     oscillator.stop();
                 } catch (error) {}
+
             });
+
         }, 600);
+
     }
 
     ambientOscillators = [];
     ambientGain = null;
+
 }
 
 /* LIGAR E DESLIGAR SOM */
@@ -1079,7 +1212,10 @@ function toggleSound() {
         button.style.boxShadow = "0 0 22px rgba(120,145,255,.18)";
 
         playTone(660, .25, .045);
-        setTimeout(() => playTone(880, .3, .035), 100);
+
+        setTimeout(() => {
+            playTone(880, .3, .035);
+        }, 100);
 
     } else {
 
@@ -1090,13 +1226,19 @@ function toggleSound() {
 
         button.style.borderColor = "rgba(255,255,255,.14)";
         button.style.boxShadow = "none";
+
     }
+
 }
 
-/* INICIAR ANIMACOES */
+/* INICIALIZACAO */
 
 window.addEventListener("load", () => {
-    observePhotos();
+
+    if (!document.body.classList.contains("intro-active")) {
+        observePhotos();
+    }
+
 });
 
 </script>
